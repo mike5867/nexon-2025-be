@@ -1,0 +1,59 @@
+services:
+  mongodb:
+    image: mongo
+    container_name: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - nest-net
+
+  auth:
+    build:
+      context: .
+      dockerfile: apps/auth/Dockerfile
+    container_name: auth
+    networks:
+      - nest-net
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/auth
+
+  event:
+    build:
+      context: .
+      dockerfile: apps/event/Dockerfile
+    container_name: event
+    networks:
+      - nest-net
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/event
+
+  gateway:
+    build:
+      context: .
+      dockerfile: apps/gateway/Dockerfile
+    container_name: gateway
+    ports:
+      - '3000:3000'
+    depends_on:
+      - auth
+      - event
+    networks:
+      - nest-net
+    environment:
+      - AUTH_SERVICE_HOST=auth
+      - AUTH_SERVICE_PORT=4001
+      - EVENT_SERVICE_HOST=event
+      - EVENT_SERVICE_PORT=5001
+
+volumes:
+  mongo-data:
+
+networks:
+  nest-net:
+    driver: bridge
