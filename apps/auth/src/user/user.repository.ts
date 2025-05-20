@@ -10,7 +10,9 @@ export class UserRepository {
     private readonly userModel: Model<User>,
   ) {}
 
-  async create(req: Pick<User, 'email' | 'password' | 'name'>): Promise<User> {
+  async create(
+    req: Pick<User, 'email' | 'password' | 'name' | 'role'>,
+  ): Promise<User> {
     return this.userModel.create(req);
   }
 

@@ -34,6 +34,7 @@ export class UserService {
       email,
       password,
       name,
+      role: email === 'system@nexon.com' ? UserRole.Admin : UserRole.User,
     });
 
     return convertUserDocumentToDto(createdUserDoc);
