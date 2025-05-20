@@ -39,7 +39,7 @@ export class RewardController {
     return { claim };
   }
 
-  @MessagePattern(EventRPCMessagePattern.ClaimEventReward)
+  @MessagePattern(EventRPCMessagePattern.GetEventRewardClaim)
   async getEventRewardClaims(
     data: GetEventRewardClaimsRPCRequest,
   ): Promise<GetEventRewardClaimsRPCResponse> {

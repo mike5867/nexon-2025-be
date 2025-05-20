@@ -16,12 +16,10 @@ export class AuthService {
 
   async signIn(email: string, password: string): Promise<string> {
     const userDoc = await this.userService.getUserDocumentByEmail(email);
-
     const match = await bcrypt.compare(password, userDoc.password);
     if (!match) throw new UnauthorizedException('Invalid credentials');
 
     const payload: JwtPayload = { userId: userDoc._id, role: userDoc.role };
-
     const token = this.jwtService.sign(payload, {
       secret: 'your-secret-key',
     });

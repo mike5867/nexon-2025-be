@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, UpdateQuery } from 'mongoose';
+import { Model, RootFilterQuery, UpdateQuery } from 'mongoose';
 import { EventRewardClaim } from './reward.schema';
 
 @Injectable()
@@ -21,7 +21,12 @@ export class EventRewardClaimRepository {
   }
 
   async find(where: { userId?: string }): Promise<Array<EventRewardClaim>> {
-    const document = await this.eventRewardClaimModel.find({ ...where });
+    const whereConditions: RootFilterQuery<EventRewardClaim> = {};
+
+    if (where.userId) {
+      whereConditions.user = where.userId;
+    }
+    const document = await this.eventRewardClaimModel.find(whereConditions);
 
     return document;
   }

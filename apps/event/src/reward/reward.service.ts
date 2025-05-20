@@ -6,7 +6,6 @@ import {
 import { UserRepository } from 'apps/auth/src/user/user.repository';
 import { User } from 'apps/auth/src/user/user.schema';
 import { UserLoginHistoryRepository } from 'apps/auth/src/user/userLoginHistory.repository';
-import dayjs from 'dayjs';
 import {
   convertEventDocumentToDto,
   convertEventRewardClaimDocumentToDto,
@@ -16,6 +15,7 @@ import { EventReward, EventRewardClaimDto } from 'lib/dto/reward.dto';
 import { EventRepository } from '../event.repository';
 import { Event } from '../event.schema';
 import { EventRewardClaimRepository } from './reward.repository';
+import * as dayjs from 'dayjs';
 
 @Injectable()
 export class RewardService {
@@ -97,6 +97,7 @@ export class RewardService {
           { userId: user._id },
           { loginedAt: 1 },
         );
+
         const currentDay = dayjs().startOf('day');
 
         const targetHistories = userLoginHistories.filter(

@@ -9,7 +9,7 @@ export class UserLoginHistory extends Document<string> {
   user: mongoose.Types.ObjectId;
 
   @IsNotEmpty()
-  @Prop({ type: Date, required: true })
+  @Prop({ type: Date, default: Date.now })
   loginedAt: Date;
 }
 

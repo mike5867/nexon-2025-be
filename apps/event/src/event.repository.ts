@@ -13,7 +13,11 @@ export class EventRepository {
   async create(
     req: Pick<Event, 'description' | 'condition' | 'isEnabled'>,
   ): Promise<Event> {
-    return this.eventModel.create(req);
+    return this.eventModel.create({
+      description: req.description,
+      condition: req.condition,
+      isEnabled: req.isEnabled,
+    });
   }
 
   async find(where: { ids?: Array<string> }): Promise<Array<Event>> {

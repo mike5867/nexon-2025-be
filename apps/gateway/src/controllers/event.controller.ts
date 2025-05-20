@@ -84,7 +84,7 @@ export class EventController {
     return this.eventClient.getEventRewardClaims({});
   }
 
-  @Get('claims')
+  @Get('claims/my')
   @Roles(UserRole.Admin, UserRole.User)
   async getMyEventRewardClaims(
     @Req() req: AuthenticatedRequest,
