@@ -1,13 +1,13 @@
 import { Body, Controller, Param, Put, UseGuards } from '@nestjs/common';
 import { Roles } from 'lib/decorators/roles.decorator';
 import { UserRole } from 'lib/dto/user.dto';
-import {
-  GrantUserRoleRequest,
-  GrantUserRoleResponse,
-} from 'lib/interfaces/auth.interface';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { RolesGuard } from '../auth/role.guard';
 import { AuthClient } from '../clients/auth.client';
+import {
+  GrantUserRoleRequest,
+  GrantUserRoleResponse,
+} from 'lib/interfaces/user.interface';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard, RolesGuard)

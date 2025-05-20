@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { convertUserDocumentToUser } from 'lib/convertor/user.convertor';
+import { convertUserDocumentToDto } from 'lib/convertor/user.convertor';
 import { UserDto, UserRole } from 'lib/dto/user.dto';
 import { UserRepository } from './user.repository';
 import { User } from './user.schema';
@@ -36,7 +36,7 @@ export class UserService {
       name,
     });
 
-    return convertUserDocumentToUser(createdUserDoc);
+    return convertUserDocumentToDto(createdUserDoc);
   }
 
   async grantUserRole(userId: string, role: UserRole): Promise<UserDto> {
@@ -54,7 +54,7 @@ export class UserService {
 
     const updatedUser = await this.userRepository.update(userId, { role });
 
-    return convertUserDocumentToUser(updatedUser);
+    return convertUserDocumentToDto(updatedUser);
   }
 
   async getUserDocumentByEmail(email: string): Promise<User> {
@@ -74,6 +74,6 @@ export class UserService {
       throw new NotFoundException(`User(${userId}) not found.`);
     }
 
-    return convertUserDocumentToUser(user);
+    return convertUserDocumentToDto(user);
   }
 }

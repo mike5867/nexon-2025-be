@@ -1,13 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
-  GrantUserRoleRPCRequest,
-  GrantUserRoleRPCResponse,
   SignInRequest,
   SignInResponse,
   SignUpRequest,
   SignUpResponse,
 } from 'lib/interfaces/auth.interface';
+import {
+  GrantUserRoleRPCRequest,
+  GrantUserRoleRPCResponse,
+} from 'lib/interfaces/user.interface';
 import { AuthRPCMessagePattern } from 'lib/rpc/auth.message.pattern';
 import { firstValueFrom } from 'rxjs';
 

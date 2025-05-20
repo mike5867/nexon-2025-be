@@ -22,18 +22,11 @@ export class UserRepository {
     return document;
   }
 
-  async update(
-    id: string,
-    update: Partial<Pick<User, 'role' | 'lastLoginedAt'>>,
-  ): Promise<User> {
+  async update(id: string, update: Partial<Pick<User, 'role'>>): Promise<User> {
     const updateQuery: UpdateQuery<User> = {};
 
     if ('role' in update) {
       updateQuery.role = update.role;
-    }
-
-    if ('lastLoginedAt' in update) {
-      updateQuery.lastLoginedAt = update.lastLoginedAt;
     }
 
     const updated = await this.userModel.findByIdAndUpdate(id, updateQuery, {

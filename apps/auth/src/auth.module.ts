@@ -9,6 +9,11 @@ import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { UserRepository } from './user/user.repository';
 import { User, UserSchema } from './user/user.schema';
+import { UserLoginHistoryRepository } from './user/userLoginHistory.repository';
+import {
+  UserLoginHistory,
+  UserLoginHistorySchema,
+} from './user/userLoginHistory.schema';
 
 @Module({
   imports: [
@@ -27,8 +32,17 @@ import { User, UserSchema } from './user/user.schema';
     AuthModule,
     UserModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([
+      { name: UserLoginHistory.name, schema: UserLoginHistorySchema },
+    ]),
   ],
   controllers: [AuthController, UserController],
-  providers: [AuthService, UserService, JwtService, UserRepository],
+  providers: [
+    AuthService,
+    UserService,
+    JwtService,
+    UserRepository,
+    UserLoginHistoryRepository,
+  ],
 })
 export class AuthModule {}

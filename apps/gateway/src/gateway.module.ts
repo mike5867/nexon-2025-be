@@ -8,6 +8,8 @@ import { RolesGuard } from './auth/role.guard';
 import { UserController } from './controllers/user.controller';
 import { AuthController } from './controllers/auth.controller';
 import { AuthClient } from './clients/auth.client';
+import { EventController } from './controllers/event.controller';
+import { EventClient } from './clients/event.client';
 
 @Module({
   imports: [
@@ -22,11 +24,21 @@ import { AuthClient } from './clients/auth.client';
             : 4001,
         },
       },
+      {
+        name: 'EVENT_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: process.env.EVENT_SERVICE_HOST || '127.0.0.1',
+          port: process.env.EVENT_SERVICE_PORT
+            ? parseInt(process.env.EVENT_SERVICE_PORT)
+            : 5001,
+        },
+      },
     ]),
     PassportModule,
     JwtModule.register({ secret: 'jwt_secret' }),
   ],
-  controllers: [UserController, AuthController],
-  providers: [JwtStrategy, JwtAuthGuard, RolesGuard, AuthClient],
+  controllers: [UserController, AuthController, EventController],
+  providers: [JwtStrategy, JwtAuthGuard, RolesGuard, AuthClient, EventClient],
 })
 export class GatewayModule {}

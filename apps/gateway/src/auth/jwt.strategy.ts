@@ -2,11 +2,11 @@ import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { PassportStrategy } from '@nestjs/passport';
 import { UserDto } from 'lib/dto/user.dto';
+import { JwtPayload } from 'lib/interfaces/auth.interface';
 import {
-  GetUserRPCRequest,
   GetUserRPCResponse,
-  JwtPayload,
-} from 'lib/interfaces/auth.interface';
+  GetUserRPCRequest,
+} from 'lib/interfaces/user.interface';
 import { AuthRPCMessagePattern } from 'lib/rpc/auth.message.pattern';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { lastValueFrom } from 'rxjs';

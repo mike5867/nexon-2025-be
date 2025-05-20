@@ -24,8 +24,9 @@ export class User extends Document<string> {
   @Prop({ type: String, enum: UserRole, default: UserRole.User })
   role: UserRole;
 
-  @Prop({ type: Date, required: false })
-  lastLoginedAt: Date;
+  @IsNotEmpty()
+  @Prop({ type: Date, default: Date.now })
+  createdAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

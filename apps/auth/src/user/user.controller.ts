@@ -1,13 +1,13 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
+import { AuthRPCMessagePattern } from 'lib/rpc/auth.message.pattern';
+import { UserService } from './user.service';
 import {
   GetUserRPCRequest,
   GetUserRPCResponse,
   GrantUserRoleRPCRequest,
   GrantUserRoleRPCResponse,
-} from 'lib/interfaces/auth.interface';
-import { AuthRPCMessagePattern } from 'lib/rpc/auth.message.pattern';
-import { UserService } from './user.service';
+} from 'lib/interfaces/user.interface';
 
 @Controller()
 export class UserController {
