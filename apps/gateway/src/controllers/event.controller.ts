@@ -57,7 +57,7 @@ export class EventController {
     return { event };
   }
 
-  @Patch(':eventId/rewards')
+  @Post(':eventId/rewards')
   @Roles(UserRole.Admin, UserRole.Operator)
   async addEventReward(
     @Param('eventId') eventId: string,
